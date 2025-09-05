@@ -1,8 +1,14 @@
-import { render, screen } from '@testing-library/react';
-import Header from './Header';
+import React from "react";
+import { render, screen } from "@testing-library/react";
+import '@testing-library/jest-dom';
+import Header from "./Header";
+import spacexLogo from "../assets/images/spacex_logo.png";
 
-test('renders logo', () => {
+describe("Header component", () => {
+  test("renders the SpaceX logo", () => {
     render(<Header />);
-    const logo = screen.getByAltText(/spacex/i);
-    expect(logo).toHaveAttribute('src', 'spacex_logo.png');
+    const logo = screen.getByAltText("SpaceX...");
+    expect(logo).toBeInTheDocument();
+    expect(logo.src).toContain(spacexLogo);
+  });
 });
