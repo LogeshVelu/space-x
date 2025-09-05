@@ -72,9 +72,10 @@ const Launches = () => {
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [page, setPage] = useState(0);
     const [query, setQuery] = useState({
-        start: getFormattedDate(subDays(new Date(), 18000)),
+        start: getFormattedDate(subDays(new Date(), 180)),
         end: getFormattedDate(new Date()),
     });
+    
     const [datepickerLabel, setDatepickerLabel] = useState("Past 6 months");
 
     const limit = 12, offset = page * 10;
@@ -83,6 +84,7 @@ const Launches = () => {
         queryKey: ['launches', limit, offset, query],
         queryFn: () => useFetchLaunchesData(limit, offset, query)
     });
+
     let records = data.data;
     let totalPages = data?.headers['spacex-api-count'] <= 12 ? 1 : data?.headers['spacex-api-count'] || 1;
 
