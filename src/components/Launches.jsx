@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import axios from 'axios';
+import React, { useState } from "react";
 import { Table, Badge, Pagination, Pane, Spinner, Select } from 'evergreen-ui';
 import { launchUTCFormetChanged, launchStatus } from "./Utils";
 import Styled from 'styled-components';
@@ -9,6 +8,7 @@ import Dropdown from "./Dropdown";
 import LaunchDetailsPopup from "./LaunchDetailsPopup";
 import DatePicker from "./DatePicker";
 import { subDays } from 'date-fns';
+import { SlCalender } from "react-icons/sl";
 
 const StyledDiv = Styled.div`
     margin: 1rem 5rem 1rem 5rem;
@@ -44,6 +44,10 @@ const StyledFilterContainer = Styled.div`
     grid-template-columns: 1fr 1fr;
     gap: 75%;
     margin: 1rem 0 1rem 0;
+
+    @media (max-width: 768px) {
+      gap: 20%;  
+    }
 `;
 const StyledContainerNoData = Styled.div`
     display: flex;
@@ -52,6 +56,12 @@ const StyledContainerNoData = Styled.div`
     color:#7b7b7b;
     margin-top:1rem;
     font-family: "SF UI Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+`;
+
+const StyledSelect = Styled(Select)`
+        .ub-b-top_1px-solid-d8dae5 {
+            border: none;
+        }
 `;
 
 const StyledTable = Styled(Table)`
@@ -139,13 +149,15 @@ const Launches = () => {
         <>
             <StyledDiv>
                 <StyledFilterContainer>
-                    <div onClick={() => { setShowDatePicker(true); }}>
-                        <Select defaultValue={datepickerLabel} name="timePicker" onChange={event => alert(event.target.value)}>
-                            <option>{datepickerLabel}</option>
-                        </Select>
+                    <div  data-testid='timepicker' onClick={() => { setShowDatePicker(true); }}>
+                        {/* <SlCalender /> */}
+                        <StyledSelect defaultValue={datepickerLabel} name="timePicker" onChange={event => alert(event.target.value)}>
+                            
+                            <option>{ datepickerLabel}</option>
+                        </StyledSelect>
                     </div>
 
-                    <Dropdown getSelectedOption={getSelectedDropdownOption} />
+                    <div data-testid='status-based-filter'><Dropdown  getSelectedOption={getSelectedDropdownOption} /></div>
                 </StyledFilterContainer>
 
                 <StyledTable>

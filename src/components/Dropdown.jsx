@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { Select } from 'evergreen-ui';
-import styled from 'styled-components';
+import Styled from 'styled-components';
+import { CiFilter } from "react-icons/ci";
 
-const StyledSelect = styled(Select)`
+const StyledSelect = Styled(Select)`
     .ub-color_474d66 {
         border:none;
     }
 
     .ub-w_100prcnt {
-        width:4rem !important;
+        width:10rem !important;
     }
 `;
 
@@ -21,6 +22,7 @@ const Dropdown = ({ getSelectedOption }) => {
     }
 
     return <>
+    {/* <CiFilter /> */}
         <StyledSelect value={selectedOption} onChange={changeOption}>
             <option value="all">All Launches</option>
             <option value="upcoming">Upcoming Launches</option>
